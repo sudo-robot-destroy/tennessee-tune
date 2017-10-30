@@ -18,7 +18,7 @@ class FitFopdtModel:
         print('Importing data from provided file...')
         self.import_cvs_data(filename, start_time, end_time)
 
-        # solve the model with the initial parameters, this is really just for plotting
+        # solve the model with the initial guess parameters, this is really just for plotting
         self.ym1 = self.first_order_integrating(self.x0)
 
     def import_cvs_data(self, filename, starttime, endtime):
@@ -36,8 +36,8 @@ class FitFopdtModel:
             self.t_0  = self.t[0]   # the initial time
             self.co_0 = self.co[0]  # the inital controller output
 
-            # Since there is a dead time, controller output data will need to be interpolated so we can see what it was
-            # a certain amount of time in the past.
+            # Since there is a dead time (lag), controller output data will need to be interpolated so we can see what
+            # it was a certain amount of time in the past.
             self.co_interpolated = interp1d(self.t, self.co)
 
             # The model is very sensitive to the controller output steady state, it is the controller output required to
@@ -53,7 +53,7 @@ class FitFopdtModel:
         print('Initial SSE Objective: ' + str(self.objective(self.x0)))
         # optimize Km, thetam
         print('Finding optimized solution...')
-        solution = minimize(self.objective, self.x0, method="Nelder-Mead", options={'disp': True})
+        solution = minimize(self.objective, self.x0, method="Nelder-Mead", tol=1e-10, options={'disp': True, 'maxiter': 500})
         x = solution.x
 
         # show final objective and the optimized parameters
@@ -67,7 +67,7 @@ class FitFopdtModel:
         # define the objective function to be minimized
         # simulate model
         ym = self.first_order_integrating(x)
-        # if something bad happend in the first_order_integrating function, avoid those numbers by sending infinity
+        # if something bad happened in the first_order_integrating function, avoid those numbers by sending infinity
         if ym is False:
             return np.inf
         # calculate objective value using least squares method

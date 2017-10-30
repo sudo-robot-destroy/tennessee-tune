@@ -1,0 +1,13 @@
+To start the betaflight sitl run (from betaflight directory) 
+./obj/main/betaflight_SITL.elf
+If there is an error (Segmentation fault), delete eeprom.bin file in the betaflight directory
+rm eeprom.bin
+
+pyserial comes with miniterm that lets you connect to serial connections. This connects to the port: 
+python -m serial.tools.miniterm socket://127.0.0.1:5761 115200
+Hitting # lets you enter the betaflight Cli
+
+To start gazebo, run the following for the Desktop directory: 
+gazebo --verbose ./iris_arducopter_demo.world
+
+
