@@ -6,7 +6,12 @@ import time
 serialPort = "socket://127.0.0.1:5761"
 board = MultiWii(serialPort)
 
-#    print board.getData(MultiWii.ATTITUDE)
+while True:
+    print board.getData(MultiWii.ATTITUDE)
+    data = [1500, 1500, 2000, 2000]
+    board.sendCMD(8, MultiWii.SET_RAW_RC, data)
+    time.sleep(.5)
+"""
 
 try:
     #board.arm()
@@ -26,7 +31,7 @@ try:
 except Exception, error:
     print "Error on Main: "+str(error)
 
-
+"""
 
 """
 import serial

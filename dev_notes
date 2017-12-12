@@ -5,9 +5,18 @@ rm eeprom.bin
 
 pyserial comes with miniterm that lets you connect to serial connections. This connects to the port: 
 python -m serial.tools.miniterm socket://127.0.0.1:5761 115200
-Hitting # lets you enter the betaflight Cli
+Hitting # lets you enter the betaflight Cli, "feature RX_MSP" should enable msp commands. 
 
 To start gazebo, run the following for the Desktop directory: 
 gazebo --verbose ./iris_arducopter_demo.world
 
+I rebuilt betaflight like this 
+make TARGET=SITL OPTIONS=USE_MSP_UART
 
+Also, I notices in iris_arducopter_demo.world there was a note that said I needed $ git clone https://github.com/hsu/ardupilot.git -b gazebo_sitl (not the normal ardupilot I had). 
+There are some other notes in there about path. 
+
+Now I'm able to fly the quad using the configurators motor controls at least thats some progress. 
+I tried on a new day just starting the elf, then gazebo, then the configuartor and flying, but it didn't work. 
+I disconnected the configurator, connected to cli through miniterm, enabled RX_MSP, exited miniterm, 
+this caused elf to crash, restarted elf (after deleting eeprom), then configurator, then it flew from configurator. 
