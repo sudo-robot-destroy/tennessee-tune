@@ -8,8 +8,8 @@ board = MultiWii(serialPort)
 
 while True:
     print board.getData(MultiWii.ATTITUDE)
-    data = [1500, 1500, 2000, 2000]
-    board.sendCMD(8, MultiWii.SET_RAW_RC, data)
+    data = [1500, 1500, 2000, 2000,0,0,0,0]
+    board.sendCMD(16, MultiWii.SET_RAW_RC, data)
     time.sleep(.5)
 """
 
