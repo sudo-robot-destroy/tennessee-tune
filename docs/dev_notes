@@ -20,3 +20,16 @@ Now I'm able to fly the quad using the configurators motor controls at least tha
 I tried on a new day just starting the elf, then gazebo, then the configuartor and flying, but it didn't work. 
 I disconnected the configurator, connected to cli through miniterm, enabled RX_MSP, exited miniterm, 
 this caused elf to crash, restarted elf (after deleting eeprom), then configurator, then it flew from configurator. 
+
+It seems like I have to move the motors in the motors tab before I can use the virtual control sticks. Also sometimes I have to redo the feature RX_MSP command, althought that might just be the restart fixing it. Confirmed that it is only a restart that is needed not the RX_MSP command!
+
+Also confirmed that msp_commander.py is able to receive information from the elf by binding to 2nd msp port and polling ATTITUDE while I flew over port 1 with virtual sticks in configurator. 
+
+I've also confirmed that my simulator is able to communitcate with the elf because when I push the motor sliders up in the configurator I can see the values rise on my simulator's console output (the numbers go from 0 to 1. 
+
+***For opening a serial port like I'm doing you have to do this
+self.ser = serial.serial_for_url(serPort, do_not_open = True)
+instead of just this
+self.ser = serial.Serial()
+Not sure if that is worth a git push
+
