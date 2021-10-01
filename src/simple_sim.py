@@ -16,10 +16,10 @@ double position_xyz[3]
 import socket
 import struct
 
-
+# blah blah blah
 UDP_IP = "127.0.0.1"
 SEND_UDP_PORT = 9003
-REC_UDP_PORT = 9002
+REC_UDP_PORT = 9002 
 
 send_sock = socket.socket(socket.AF_INET,  # Internet
                           socket.SOCK_DGRAM)  # UDP
